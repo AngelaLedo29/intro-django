@@ -21,5 +21,5 @@ from django.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     # URL de nuestra nueva app
-    path('catalog/', include('catalog.urls')),
+    path('catalog/', include('catalog.urls')),   
 ]
