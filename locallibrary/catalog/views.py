@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Book, BookInstance, Author
+<<<<<<< HEAD
 from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def index_general_old(request):
+=======
+
+# Create your views here.
+def index_old(request):
+>>>>>>> 3e462f835815f7042ab1db76d81adb75045c4a39
     texto = '''<h1>Librería Local</h1>
     <p>Esta es la página principal de la librería local.</p>
     <h2>Total de instancias de libros: '''
@@ -71,6 +77,7 @@ def index(request):
             'num_authors':num_authors,
             'num_visits':num_visits,
             'ultimos':ultimos},
+<<<<<<< HEAD
     )
 
 ## Listas Genéricas
@@ -78,3 +85,6 @@ class BookListView(ListView):
     '''Vista genérica para el listado de libros'''
     model = Book
     paginate_by = 10
+=======
+    )
+>>>>>>> 3e462f835815f7042ab1db76d81adb75045c4a39
