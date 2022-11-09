@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from catalog.models import Book, BookInstance, Author
 
 # Create your views here.
-def index_old(request):
+def index_general_old(request):
     texto = '''<h1>Librería Local</h1>
     <p>Esta es la página principal de la librería local.</p>
     <h2>Total de instancias de libros: '''
@@ -24,6 +24,9 @@ def index_old(request):
 
     return HttpResponse(texto + lista)
 
+def index_general(request):
+    return render(request, 'index-general.html')
+
 def acerca_de(request):
     texto = '''<h1>Acerca de</h1>
     <p>Esta es la página acerca de de la librería local.</p>
@@ -32,7 +35,7 @@ def acerca_de(request):
     # texto = 'Página acerca de la librería local'
     return HttpResponse(texto)
 
-def index_general(request):
+def index_old(request):
     texto = '''<h1>Inicio de la Librería Local</h1>
     <p>Esta es la página de inicio de la librería local.</p>
     Si quieres ver el index de la librería local, pulsa <a href="/catalog/">aquí</a>'''

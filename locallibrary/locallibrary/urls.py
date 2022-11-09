@@ -17,11 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 
 # importamos la vista de nuestra app catalog
-from catalog.views import index
+from catalog.views import index_general
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('catalog/', include('catalog.urls')),
+    # castellanizar URL catalogo
+    path('catalogo/', include('catalog.urls')),
     ## para el index general
-    path('', index, name='index_general'),
+    path('', index_general, name='index_general'),
+    ## URLS de django-debug-toolbar
+    path('__debug__/', include('debug_toolbar.urls')),
 ]
