@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from catalog.models import Book, BookInstance, Author
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 def index_general_old(request):
