@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 # importamos la vista de nuestra app catalog
-<<<<<<< HEAD
 from catalog.views import index_general
 
 urlpatterns = [
@@ -26,15 +25,6 @@ urlpatterns = [
     path('catalogo/', include('catalog.urls')),
     ## para el index general
     path('', index_general, name='index_general'),
-    ## URLS de django-debug-toolbar
+     # urls de django-debug-toolbar
     path('__debug__/', include('debug_toolbar.urls')),
-=======
-from catalog.views import index
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('catalog/', include('catalog.urls')),
-    ## para el index general
-    path('', index, name='index_general'),
->>>>>>> 3e462f835815f7042ab1db76d81adb75045c4a39
 ]
