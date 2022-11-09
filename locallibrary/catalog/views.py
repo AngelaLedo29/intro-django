@@ -72,3 +72,9 @@ def index(request):
             'num_visits':num_visits,
             'ultimos':ultimos},
     )
+
+## Listas Genéricas
+class BookListView(ListView):
+    '''Vista genérica para el listado de libros'''
+    model = Book
+    paginate_by = 10
