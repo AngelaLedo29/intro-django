@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de libro{% endblock %}
+
+{% block content %}
+<h1>{{ book.title }}</h1>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">{{ book.title }}</h5>
+        <p class="card-text">
+            <strong>Author: </strong> {{ book.author }}
+        </p>
+        <p class="card-text">
+            <strong>Resumen:</strong> {{ book.summary }}
+        </p>
+        <p class="card-text">
+            <strong>ISBN</strong> {{ book.isbn }}
+        </p>
+        <p class="card-text">
+            <strong>Género:</strong> {{ book.genre }}
+        </p>
+        <a href="{% url 'lista-libros' libro.id %}" class="btn btn-outline-success">Volver al listado</a>
+    </div>
+</div>
+
+Ejemplares disponibles: {{ book.bookinstance_set.all.count }}
+
+{% for b in book.bookinstance_set.all %}
+{{b.status}} &nbsp;
+{% endfor %}
+
+{% endblock %}

@@ -77,3 +77,8 @@ def index(request):
 class BookListView(ListView):
     '''Vista genérica para el listado de libros'''
     model = Book
+    paginate_by = 15
+
+class BookDetailView(DetailView):
+    '''Vista genérica para el detalle de un libro'''
+    model = Book

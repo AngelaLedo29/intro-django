@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de libros{% endblock %}
+
+{% block content %}
+<h1>Listado de libros</h1>
+
+{% for libro in book_list %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ libro.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ libro.author }}</h6>
+        <p class="card-text">{{ libro.summary }}</p>
+        <a href="{% url 'detalle-libro' libro.id %}" class="btn btn-outline-success">Ver detalles</a>
+    </div>
+</div>
+{% endfor %}
+
+
+{% block pagination %}
+{% if is_paginated %}
+<ul class="pagination">
+    <li class="page-links">
+        {% if page_obj.has_previous %}
+        <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+    <li class="page-item">
+        <a class="page-link">{{ page_obj.number }}</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">...</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">{{ page_obj.paginator.num_pages }}</a>
+    </li>
+    {% if page_obj.has_next %}
+    <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+    </li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% endblock %}
