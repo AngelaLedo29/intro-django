@@ -28,13 +28,16 @@ def index_general_old(request):
 def index_general(request):
     return render(request, 'index-general.html')
 
-def acerca_de(request):
+def acerca_de_old(request):
     texto = '''<h1>Acerca de</h1>
     <p>Esta es la página acerca de de la librería local.</p>
     <img src="https://www.python.org/static/community_logos/python-logo-master-v3-TM.png" alt="Logo de Python" width="500" height="500">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'''
     # texto = 'Página acerca de la librería local'
     return HttpResponse(texto)
+
+def acerca_de(request):
+    return render(request, 'acerca-de.html')
 
 def index_old(request):
     texto = '''<h1>Inicio de la Librería Local</h1>
