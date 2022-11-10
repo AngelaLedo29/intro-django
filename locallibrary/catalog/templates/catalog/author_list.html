@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Listado de autores{% endblock %}
+
+{% block content %}
+<h1>Listado de autores</h1>
+
+{% for autor in author_list %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ autor.last_name }}, {{ autor.first_name }}</h5>
+        <a href="{% url 'detalle-autor' autor.id %}" class="btn btn-outline-success">Ver detalles</a>
+    </div>
+</div>
+{% endfor %}
+
+{% block pagination %}
+{% if is_paginated %}
+<ul class="pagination">
+    <li class="page-links">
+        {% if page_obj.has_previous %}
+        <a class="page-link" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+    <li class="page-item">
+        <a class="page-link">{{ page_obj.number }}</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">...</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link">{{ page_obj.paginator.num_pages }}</a>
+    </li>
+    {% if page_obj.has_next %}
+    <a class="page-link" href="{{ request.path }}?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+    </li>
+</ul>
+{% endif %}
+{% endblock %}
+
+{% endblock %}

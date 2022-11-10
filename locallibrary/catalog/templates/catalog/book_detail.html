@@ -13,7 +13,7 @@
         <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
         <p class="card-text"><strong>Lenguaje:</strong> {{ book.language }}</p>
         <p class="card-text"><strong>Género:</strong> {{ book.genre.all|join:", " }}</p>
-        <a class="btn btn-outline-success">Volver al listado</a>
+        <a href="{% url 'lista-libros' %}" class="btn btn-outline-success">Volver al listado</a>
     </div>
 </div>
 

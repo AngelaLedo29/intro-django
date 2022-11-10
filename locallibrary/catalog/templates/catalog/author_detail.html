@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle de autor{% endblock %}
+
+{% block content %}
+<h1>{{ author.first_name }}, {{ author.last_name }}</h1>
+
+<div class="card" style="width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title">{{ author.first_name }}, {{ author.last_name }}</h5>
+        <p class="card-text"><strong>Fecha de nacimiento:</strong> {{ author.date_of_birth }}</p>
+        <p class="card-text"><strong>Fecha de fallecimiento:</strong> {{ author.date_of_death }}</p>
+        <a href="{% url 'lista-autores' %}" class="btn btn-outline-success">Volver al listado</a>
+    </div>
+</div>
+
+{% endblock %}

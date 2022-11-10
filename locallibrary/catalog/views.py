@@ -85,3 +85,12 @@ class BookListView(ListView):
 class BookDetailView(DetailView):
     '''Vista genérica para el detalle de un libro'''
     model = Book
+
+class AuthorListView(ListView):
+    '''Vista genérica para el listado de autores'''
+    model = Author
+    paginate_by = 15
+
+class AuthorDetailView(DetailView):
+    '''Vista genérica para el detalle de un autor'''
+    model = Author
