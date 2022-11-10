@@ -20,7 +20,7 @@
 Ejemplares disponibles: {{ book.bookinstance_set.all.count }}
 
 {% for b in book.bookinstance_set.all %}
-{{b.status}} &nbsp;
+<p>{{ b.get_status_display }}</p>
 {% endfor %}
 
 {% endblock %}
