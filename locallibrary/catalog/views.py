@@ -120,5 +120,6 @@ class SearchResultsListView(ListView):
         # Call the base implementation first to get a context
         context = super(SearchResultsListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context
-        context['query'] = self.query
+        context['busqueda'] = self.query
+        context['anterior'] = self.request.META.get('HTTP_REFERER')
         return context
