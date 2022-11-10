@@ -27,8 +27,8 @@
                     <a class="nav-link active" href="/catalogo/acercade/">🤔Acerca de🤔</a>
                 </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-sm-2" type="text" placeholder="Categoría, libros, autores ...">
+            <form class="d-flex" action="{% url 'buscar' %}" method="get">
+                <input class="form-control me-sm-2" type="text" name="q" placeholder="Buscar libros, autores ...">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>

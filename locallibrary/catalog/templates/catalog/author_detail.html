@@ -10,6 +10,7 @@
         <h5 class="card-title">{{ author.first_name }}, {{ author.last_name }}</h5>
         <p class="card-text"><strong>Fecha de nacimiento:</strong> {{ author.date_of_birth }}</p>
         <p class="card-text"><strong>Fecha de fallecimiento:</strong> {{ author.date_of_death }}</p>
+        <li><a href="{% url 'detalle-libro' author.id %}">{{ author.pk }}</a></li>
         <a href="{% url 'lista-autores' %}" class="btn btn-outline-success">Volver al listado</a>
     </div>
 </div>

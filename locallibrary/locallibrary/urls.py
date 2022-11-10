@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
 # importamos la vista de nuestra app catalog
 from catalog.views import index_general
 

@@ -81,6 +81,15 @@ class BookListView(ListView):
     '''Vista genérica para el listado de libros'''
     model = Book
     paginate_by = 15
+    def get_queryset(self):
+        return Book.objects.all().order_by('title')
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(BookListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['some_data'] = 'This is just some data'
+        return context
 
 class BookDetailView(DetailView):
     '''Vista genérica para el detalle de un libro'''
@@ -90,7 +99,26 @@ class AuthorListView(ListView):
     '''Vista genérica para el listado de autores'''
     model = Author
     paginate_by = 15
+    def get_queryset(self):
+        return Author.objects.all().order_by('last_name')
 
 class AuthorDetailView(DetailView):
     '''Vista genérica para el detalle de un autor'''
     model = Author
+
+## Busqueda
+class SearchResultsListView(ListView):
+    model = Book
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        # Voy a guardar Query para el contexto
+        self.query = query
+        return Book.objects.filter(title__icontains=query)
+    
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(SearchResultsListView, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['query'] = self.query
+        return context

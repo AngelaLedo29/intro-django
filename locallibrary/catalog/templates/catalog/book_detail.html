@@ -8,7 +8,7 @@
 <div class="card" style="width: 100%;">
     <div class="card-body">
         <h5 class="card-title">{{ book.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>
+        <a href="{% url 'detalle-autor' book.pk %}">{{ book.author }}</a>
         <p class="card-text">{{ book.summary }}</p>
         <p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
         <p class="card-text"><strong>Lenguaje:</strong> {{ book.language }}</p>
@@ -20,7 +20,7 @@
 Ejemplares disponibles: {{ book.bookinstance_set.all.count }}
 
 {% for b in book.bookinstance_set.all %}
-<p>{{ b.get_status_display }}</p>
+<li>{{ b.get_status_display }} ({{b.status}})</li>
 {% endfor %}
 
 {% endblock %}
