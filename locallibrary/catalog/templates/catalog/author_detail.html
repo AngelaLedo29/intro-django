@@ -12,7 +12,7 @@
         <p class="card-text"><strong>Fecha de fallecimiento:</strong> {{ author.date_of_death }}</p>
         <li>
             {% for book in author.book_set.all %}
-                <a href="{% url 'detalle-libro' book.id %}">{{ book.title }}</a>
+            <strong>El titulo del libro que ha escrito es: </strong><a href="{% url 'detalle-libro' book.id %}">{{ book.title }}</a>
             {% endfor %}
         </li>
         <a href="{% url 'lista-autores' %}" class="btn btn-outline-success">Volver al listado</a>
