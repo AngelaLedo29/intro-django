@@ -1,7 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+import datetime
+
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 from catalog.models import Book, BookInstance, Author
 from django.views.generic import ListView, DetailView
+from django.urls import reverse
+
+from catalog.forms import RenewBookForm
 
 # Create your views here.
 def index_general_old(request):
@@ -88,7 +93,7 @@ class BookListView(ListView):
         # Call the base implementation first to get a context
         context = super(BookListView, self).get_context_data(**kwargs)
         # Create any data and add it to the context
-        context['some_data'] = 'This is just some data'
+        context['ahora'] = datetime.datetime.now()
         return context
 
 class BookDetailView(DetailView):
@@ -113,8 +118,11 @@ class SearchResultsListView(ListView):
     def get_queryset(self): # new
         query = self.request.GET.get('q')
         # Voy a guardar Query para el contexto
-        self.query = query
-        return Book.objects.filter(title__icontains=query)
+        if query:
+            self.query = query
+            return Book.objects.filter(title__icontains=query)
+        else:
+            return[]
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -123,3 +131,44 @@ class SearchResultsListView(ListView):
         context['busqueda'] = self.query
         context['anterior'] = self.request.META.get('HTTP_REFERER')
         return context
+
+## Libros prestados
+class LibrosPrestados(ListView):
+    '''Vista genérica para el listado de libros prestados'''
+    model = BookInstance
+    template_name = 'catalog/libros_prestados.html'
+    paginate_by = 15
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(status__exact='o').order_by('-due_back')
+
+# Vista para renovar un libro
+def renovar_libro(request, pk):
+    book_instance = get_object_or_404(BookInstance, pk=pk)
+
+    # Si es un POST, procesamos el formulario
+    if request.method == 'POST':
+        # Creamos un formulario con los datos del POST
+        form = RenewBookForm(request.POST)
+    
+        # Comprobamos que el formulario es válido
+        if form.is_valid():
+            # Procesamos los datos del formulario
+            book_instance.due_back = form.cleaned_data['renewal_date']
+            book_instance.save()
+    
+            # Redirigimos a la página de inicio
+            return HttpResponseRedirect(reverse('libros_prestados'))
+        
+    # Si es un GET, mostramos el formulario
+    else:
+        # inicializa la fecha de renovación dentro de 3 semanas
+        proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
+        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+
+    context = {
+        'form': form,
+        'book_instance': book_instance,
+    }
+
+    return render(request, 'catalog/renovacion_fecha.html', context)

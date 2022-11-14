@@ -1,25 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Listado de libros{% endblock %}
+{% block title %}Listado de libros prestados{% endblock %}
 
 {% block content %}
-<h1>Listado de libros</h1>
-{% if anterior %}
-<a class="btn btn-success" href="{{ anterior }}" role="button">Volver</a>
-{%  endif %}
+<h1>Libros Prestados</h1>
 
-{% for libro in book_list %}
+{% for libro in bookinstance_list %}
 <div class="card">
     <div class="card-body">
-        <h5 class="card-title">{{ libro.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ libro.author }}</h6>
-        <p class="card-text">{{ libro.summary }}</p>
-        <a href="{% url 'detalle-libro' libro.id %}" class="btn btn-outline-success">Ver detalles</a>
+        <h5 class="card-title">{{ libro.book.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ libro.id }}</h6>
+        <p class="card-text">{{ libro.due_back }}</p>
+        <p class="card-text">{{ libro.get_status_display }} ({{ libro.status }})</p>
+        <a href="{% url 'renovar-fecha' libro.id %}" class="btn btn-outline-success">Renovar Fecha</a>
     </div>
 </div>
-
-{% empty %}
-<p>No hay libros disponibles con el nombre de <strong>{{ query }}</strong></p>
 {% endfor %}
 
 
