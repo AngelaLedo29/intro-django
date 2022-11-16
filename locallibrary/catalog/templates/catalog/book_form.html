@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>Crear un nuevo Libro</h1>
+<form action="" method="post">
+    <!--Atención!! Protección CSRF-->
+    {% csrf_token %}
+    <div class="row mb-3">
+        <label for="title" class="col-sm-2 col-form-label">Título</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="title" name="title" value="{{ book.title }}">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="author" class="col-sm-2 col-form-label">Autor</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="author" name="author">
+                {% for author in all_authors %}
+                <option value="{{ author.id }}">{{ author }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="summary" class="col-sm-2 col-form-label">Resumen</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" id="summary" name="summary" rows="3">{{ book.summary }}</textarea>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="isbn" class="col-sm-2 col-form-label">ISBN</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="isbn" name="isbn" value="{{ book.isbn }}">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="genre" class="col-sm-2 col-form-label">Género</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="genre" name="genre">
+                {% for genre in all_genres %}
+                <option value="{{ genre.id }}">{{ genre.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label for="language" class="col-sm-2 col-form-label">Idioma</label>
+        <div class="col-sm-10">
+            <select class="form-select" id="language" name="language">
+                {% for language in all_languages %}
+                <option value="{{ language.id }}">{{ language.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <input type="submit" class="btn btn-success" value="Save">
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+<!--
+  <form action="" method="post">
+    {% csrf_token %}  #  Atención!! Protección CSRF
+    <table>
+    {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit" />
+  </form>
+-->

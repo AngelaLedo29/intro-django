@@ -194,3 +194,9 @@ class AuthorUpdate(UpdateView):
 class AuthorDelete(DeleteView):
     model = Author
     success_url = reverse_lazy('lista-autores')
+
+## Gestión de libros con vistas genéricas
+class BookCreate(CreateView):
+    model = Book
+    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
+    success_url = reverse_lazy('lista-libros')
