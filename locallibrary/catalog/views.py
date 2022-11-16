@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from django.urls import reverse
 
 from catalog.forms import RenewBookForm
+from catalog.forms import RenewBookModelForm
 
 # Create your views here.
 def index_general_old(request):
@@ -149,12 +150,14 @@ def renovar_libro(request, pk):
     # Si es un POST, procesamos el formulario
     if request.method == 'POST':
         # Creamos un formulario con los datos del POST
-        form = RenewBookForm(request.POST)
+        #form = RenewBookForm(request.POST)
+        form = RenewBookModelForm(request.POST)
     
         # Comprobamos que el formulario es válido
         if form.is_valid():
             # Procesamos los datos del formulario
-            book_instance.due_back = form.cleaned_data['renewal_date']
+            book_instance.due_back = form.cleaned_data['due_back']
+            book_instance.status = form.cleaned_data['status']
             book_instance.save()
     
             # Redirigimos a la página de inicio
@@ -164,7 +167,8 @@ def renovar_libro(request, pk):
     else:
         # inicializa la fecha de renovación dentro de 3 semanas
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
-        form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+        #form = RenewBookForm(initial={'renewal_date': proposed_renewal_date})
+        form = RenewBookModelForm(initial={'due_back': proposed_renewal_date})
 
     context = {
         'form': form,
