@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Confirmar eliminación de autor</h1>
+<p>¿Estás seguro de que quieres eliminar el autor {{ author }}?</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirmar" class="btn btn-danger">
+    <a href="{% url 'lista-autores' %}" class="btn btn-success">Denegar</a>
+</form>
+{% endblock %}
+
+<!--
+<p>Are you sure you want to delete this author?</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm" />
+</form>
+-->

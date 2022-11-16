@@ -4,10 +4,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from catalog.models import Book, BookInstance, Author
 from django.views.generic import ListView, DetailView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from catalog.forms import RenewBookForm
 from catalog.forms import RenewBookModelForm
+from catalog.models import Author
 
 # Create your views here.
 def index_general_old(request):
@@ -176,3 +178,19 @@ def renovar_libro(request, pk):
     }
 
     return render(request, 'catalog/renovacion_fecha.html', context)
+
+## Gestión de autores con vistas genéricas
+class AuthorCreate(CreateView):
+    model = Author
+    fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
+    success_url = reverse_lazy('lista-autores')
+    #initial = {'date_of_death': '05/01/2018'}
+
+class AuthorUpdate(UpdateView):
+    model = Author
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    success_url = reverse_lazy('lista-autores')
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('lista-autores')
