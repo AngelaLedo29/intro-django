@@ -10,8 +10,8 @@
     <div class="card-body">
         <h5 class="card-title">{{ autor.last_name }}, {{ autor.first_name }}</h5>
         <a href="{% url 'detalle-autor' autor.id %}" class="btn btn-outline-success">Ver detalles</a>
-        <a href="{% url 'actualizar-autor' autor.id %}" class="btn btn-outline-success">Actualizar Autor</a>
-        <a href="{% url 'eliminar-autor' autor.id %}" class="btn btn-outline-success">Eliminar Autor</a>
+        <a href="{% url 'actualizar-autor' autor.id %}" class="btn btn-outline-primary">Actualizar</a>
+        <a href="{% url 'eliminar-autor' autor.id %}" class="btn btn-outline-danger">Eliminar</a>
     </div>
 </div>
 {% endfor %}

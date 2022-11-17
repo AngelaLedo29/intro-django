@@ -200,3 +200,12 @@ class BookCreate(CreateView):
     model = Book
     fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     success_url = reverse_lazy('lista-libros')
+
+class BookUpdate(UpdateView):
+    model = Book
+    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    success_url = reverse_lazy('lista-libros')
+
+class BookDelete(DeleteView):  
+    model = Book
+    success_url = reverse_lazy('lista-libros')

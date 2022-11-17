@@ -15,6 +15,8 @@
         <h6 class="card-subtitle mb-2 text-muted">{{ libro.author }}</h6>
         <p class="card-text">{{ libro.summary }}</p>
         <a href="{% url 'detalle-libro' libro.id %}" class="btn btn-outline-success">Ver detalles</a>
+        <a href="{% url 'actualizar-libro' libro.id %}" class="btn btn-outline-primary">Actualizar</a>
+        <a href="{% url 'eliminar-libro' libro.id %}" class="btn btn-outline-danger">Eliminar</a>
     </div>
 </div>
 

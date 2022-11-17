@@ -16,6 +16,7 @@
         <label for="author" class="col-sm-2 col-form-label">Autor</label>
         <div class="col-sm-10">
             <select class="form-select" id="author" name="author">
+                <option selected>Elige un Autor</option>
                 {% for author in all_authors %}
                 <option value="{{ author.id }}">{{ author }}</option>
                 {% endfor %}
@@ -38,6 +39,7 @@
         <label for="genre" class="col-sm-2 col-form-label">Género</label>
         <div class="col-sm-10">
             <select class="form-select" id="genre" name="genre">
+                <option selected>Elige un Género</option>
                 {% for genre in all_genres %}
                 <option value="{{ genre.id }}">{{ genre.name }}</option>
                 {% endfor %}
@@ -48,6 +50,7 @@
         <label for="language" class="col-sm-2 col-form-label">Idioma</label>
         <div class="col-sm-10">
             <select class="form-select" id="language" name="language">
+                <option selected>Elige un Idioma</option>
                 {% for language in all_languages %}
                 <option value="{{ language.id }}">{{ language.name }}</option>
                 {% endfor %}
