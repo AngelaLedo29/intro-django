@@ -31,7 +31,7 @@
                 </li>
             </ul>
             <form class="d-flex" action="{% url 'buscar' %}" method="get">
-                <input class="form-control me-sm-2" type="text" name="q" placeholder="Buscar libros, autores ..." {% if busqueda %} value="{{busqueda}}" {% endif %} required>
+                <input class="form-control me-sm-2" type="text" name="q" placeholder="Buscar libros..." {% if busqueda %} value="{{busqueda}}" {% endif %} required>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
             </form>
         </div>

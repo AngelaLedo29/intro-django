@@ -1,6 +1,9 @@
 # Creamos urls.py en la carpeta catalog
 from django.urls import path
-from .views import index, acerca_de, BookListView, BookDetailView, AuthorListView, AuthorDetailView, SearchResultsListView, LibrosPrestados, renovar_libro, AuthorCreate, AuthorUpdate, AuthorDelete, BookCreate, BookUpdate, BookDelete, contact
+from .views import (index, acerca_de, BookListView, BookDetailView, AuthorListView, 
+                    AuthorDetailView, SearchResultsListView, LibrosPrestados, renovar_libro, 
+                    AuthorCreate, AuthorUpdate, AuthorDelete, BookCreate, BookUpdate, BookDelete,
+                    SearchResultsListViewAuthor)
 
 urlpatterns = [
     path('', index, name='index'),
@@ -18,4 +21,5 @@ urlpatterns = [
     path('libro/crear/', BookCreate.as_view(), name='crear-libro'),
     path('libro/<int:pk>/actualizar/', BookUpdate.as_view(), name='actualizar-libro'),
     path('libro/<int:pk>/eliminar/', BookDelete.as_view(), name='eliminar-libro'),
+    path('buscar/', SearchResultsListViewAuthor.as_view(), name='busqueda'),
 ]

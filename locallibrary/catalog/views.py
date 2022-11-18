@@ -120,7 +120,7 @@ class AuthorDetailView(DetailView):
     '''Vista genérica para el detalle de un autor'''
     model = Author
 
-## Busqueda
+## Busqueda de libros
 class SearchResultsListView(ListView):
     model = Book
 
@@ -238,3 +238,24 @@ def contact(request):
       
 	form = ContactForm()
 	return render(request, "acerca_de.html", {'form':form})
+
+## Busqueda de autores
+class SearchResultsListViewAuthor(ListView):
+    model = Author
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        # Voy a guardar Query para el contexto
+        if query:
+            self.query = query
+            return Author.objects.filter(last_name__icontains=query)
+        else:
+            return[]
+        
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(SearchResultsListViewAuthor, self).get_context_data(**kwargs)
+        # Create any data and add it to the context
+        context['buscar'] = self.query
+        context['anterior'] = self.request.META.get('HTTP_REFERER')
+        return context

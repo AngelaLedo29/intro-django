@@ -3,7 +3,21 @@
 {% block title %}Listado de autores{% endblock %}
 
 {% block content %}
-<h1>Listado de autores</h1>
+
+<div class="row my-4">
+    <h1 class="col-6">Listado de autores</h1>
+    <h1 class="col-6">
+        <form class="d-flex" action="{% url 'busqueda' %}" method="get">
+            <input class="form-control me-sm-2" type="text" name="q" placeholder="Buscar autor..." {% if buscar %}
+                value="{{buscar}}" {% endif %} required>
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </h1>
+</div>
+
+{% if anterior %}
+<a class="btn btn-success" href="{{ anterior }}" role="button">Volver</a>
+{% endif %}
 
 {% for autor in author_list %}
 <div class="card">
