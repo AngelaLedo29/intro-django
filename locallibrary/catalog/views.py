@@ -45,7 +45,11 @@ def acerca_de_old(request):
     return HttpResponse(texto)
 
 def acerca_de(request):
-    return render(request, 'acerca-de.html')
+    context = {}
+    context['title'] = 'Acerca de'
+    context['coords'] = "41.6447242,-0.9231553"
+
+    return render(request, 'acerca_de.html', context)
 
 def index_old(request):
     texto = '''<h1>Inicio de la Librería Local</h1>
