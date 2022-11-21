@@ -7,6 +7,9 @@ from django.views.generic import ListView, DetailView
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.mail import send_mail, BadHeaderError
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 from catalog.forms import RenewBookForm
 from catalog.forms import RenewBookModelForm
@@ -47,9 +50,25 @@ def acerca_de_old(request):
     return HttpResponse(texto)
 
 def acerca_de(request):
+    if request.method == 'POST':
+        # Recogemos los datos del formulario
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = form.cleaned_data['subject']
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            try:
+                send_mail(subject, message, from_email, ['admin@example.com'])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            messages.success(request, 'Mensaje enviado correctamente')
+            return HttpResponseRedirect(reverse('index'))
+        messages.error(request, 'Error al enviar el mensaje')
+
     context = {}
     context['title'] = 'Acerca de'
-    context['coords'] = "41.6447242,-0.9231553"
+    context['coords'] = "41.6447242,-0.9231553" # "41.6447242,-0.9231553"
+    context['form'] = ContactForm()
 
     return render(request, 'acerca_de.html', context)
 
@@ -215,29 +234,6 @@ class BookUpdate(UpdateView):
 class BookDelete(DeleteView):  
     model = Book
     success_url = reverse_lazy('lista-libros')
-
-## Creación de contacto
-def contact(request):
-	if request.method == 'POST':
-		form = ContactForm(request.POST)
-		if form.is_valid():
-			subject = "Website Inquiry" 
-			body = {
-			    'first_name': form.cleaned_data['first_name'], 
-			    'last_name': form.cleaned_data['last_name'], 
-			    'email': form.cleaned_data['email_address'], 
-			    'message':form.cleaned_data['message'], 
-			}
-			message = "\n".join(body.values())
-
-			try:
-				send_mail(subject, message, 'admin@example.com', ['admin@example.com']) 
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
-			return redirect ("main:homepage")
-      
-	form = ContactForm()
-	return render(request, "acerca_de.html", {'form':form})
 
 ## Busqueda de autores
 class SearchResultsListViewAuthor(ListView):

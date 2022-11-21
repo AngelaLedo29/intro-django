@@ -1,79 +1,48 @@
-{% extends "base.html" %}
-
-{% block extracss %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
+{% extends "base.html" %} {% block extracss %}
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""
+/>
 
 <style>
-    #map {
-        height: 400px;
-    }
+  #map {
+    height: 400px;
+  }
 </style>
-{% endblock %}
-
-{% block content %}
-<h1 class="my-4">{{title}}</h1>
+{% endblock %} {% block content %}
+<h1 class="my-4">{{ title }}</h1>
 <div class="row">
-    <div id="map" class="col"></div>
-    <div class="col">
-        <h1>Formulario de contacto</h1>
-        <p>
-            Please write your name, email address and a message below if you have any questions.
-            One of our staff members will be happy to contact you directly and answer your questions as soon as
-            possible.
-        </p>
-        <form method="post">
-            {% csrf_token %}
-            <div class="row mb-3">
-                <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="first_name" name="first_name" value="{{ first_name }}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="last_name" name="last_name" value="{{ last_name }}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="email" class="col-sm-2 col-form-label">Email</label>
-                <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" name="email" value="{{ email }}">
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="message" class="col-sm-2 col-form-label">Message</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" id="message" name="message" rows="5">{{ message }}</textarea>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-sm-10 offset-sm-2">
-                    <button type="submit" class="btn btn-success">Send</button>
-                </div>
-            </div>
-        </form>
-    </div>
+  <div class="col-md-6">
+    <div id="map"></div>
+  </div>
+  <div class="col-md-6">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <button class="btn btn-success" type="submit">Send</button>
+      </div>
+    </form>
+  </div>
 </div>
-</div>
-{% endblock %}
-
-{% block extrajs %}
+{% endblock %} {% block extrajs %}
 <!-- Make sure you put this AFTER Leaflet's CSS -->
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+<script
+  src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""
+></script>
 
 <script>
-    var mimapa = L.map('map').setView([{{ coords }}], 13);
+  var mimapa = L.map('map').setView([{{ coords }}], 13);
 
-    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-        maxZoom: 18
-    }).addTo(mimapa);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+      maxZoom: 18
+  }).addTo(mimapa);
 
-    L.marker([{{ coords }}]).addTo(mimapa).bindPopup("CPI Los Enlaces");
+  L.marker([{{ coords }}]).addTo(mimapa).bindPopup("CPI Los Enlaces");
 </script>
 {% endblock%}
