@@ -3474,7 +3474,7 @@
         "model": "catalog.genre",
         "pk": 14,
         "fields": {
-            "name": "Psychological Fiction,"
+            "name": "Psychological Fiction"
         }
     },
     {
