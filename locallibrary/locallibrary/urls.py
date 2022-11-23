@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 # importamos la vista de nuestra app catalog
 from catalog.views import index_general
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +28,4 @@ urlpatterns = [
     path('', index_general, name='index_general'),
      # urls de django-debug-toolbar
     path('__debug__/', include('debug_toolbar.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

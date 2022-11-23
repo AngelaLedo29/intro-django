@@ -1,5 +1,7 @@
+import uuid
 from django.db import models
-import uuid # Required for unique book instances
+from django.contrib import admin
+from django.utils.html import format_html
 
 # https://developer.mozilla.org/es/docs/Learn/Server-side/Django/Models
 # Create your models here.
@@ -70,6 +72,7 @@ class BookInstance(models.Model):
         on_delete=models.SET_NULL, null=True) 
     imprint = models.CharField(max_length=200, blank=True)
     due_back = models.DateField(null=True, blank=True)
+    image = models.ImageField(upload_to='images', blank=True, null=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -92,3 +95,14 @@ class BookInstance(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return f'{self.id} ({self.book.title})'
+
+    @admin.display(description=("Image"))
+    def img_image(self):
+        if self.image:
+            return format_html('<img src="{}" width="80" />'.format(self.image.url))
+        else:
+            return 'NO Foto'
+    
+    @admin.display(description=("Status"))
+    def status_color(self):
+        return format_html('<span style="color:{}; font-size:18px;">X</span>', 'green' if self.status == 'a' else 'red')
