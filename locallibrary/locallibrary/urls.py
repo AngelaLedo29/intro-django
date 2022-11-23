@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # castellanizar URL catalogo
     path('catalogo/', include('catalog.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     ## para el index general
     path('', index_general, name='index_general'),
      # urls de django-debug-toolbar
