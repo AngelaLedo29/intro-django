@@ -29,4 +29,5 @@ urlpatterns = [
     path('', index_general, name='index_general'),
      # urls de django-debug-toolbar
     path('__debug__/', include('debug_toolbar.urls')),
+    path("select2/", include("django_select2.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

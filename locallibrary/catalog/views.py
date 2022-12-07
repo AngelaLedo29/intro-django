@@ -15,6 +15,7 @@ from catalog.forms import RenewBookForm
 from catalog.forms import RenewBookModelForm
 from catalog.models import Author
 from catalog.forms import ContactForm
+from . import models, forms
 
 # Create your views here.
 def index_general_old(request):
@@ -223,12 +224,14 @@ class AuthorDelete(DeleteView):
 ## Gestión de libros con vistas genéricas
 class BookCreate(CreateView):
     model = Book
-    fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
+    form_class = forms.BookForm
+    #fields = ['title', 'author', 'summary', 'isbn', 'genre', 'language']
     success_url = reverse_lazy('lista-libros')
 
 class BookUpdate(UpdateView):
     model = Book
-    fields = '__all__' # Not recommended (potential security issue if more fields added)
+    form_class = forms.BookForm
+    #fields = '__all__' # Not recommended (potential security issue if more fields added)
     success_url = reverse_lazy('lista-libros')
 
 class BookDelete(DeleteView):  

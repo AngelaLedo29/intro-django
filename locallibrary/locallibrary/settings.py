@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     # Aplicaciones nuestras
     'catalog.apps.CatalogConfig',
     'debug_toolbar',
+    # Aplicaciones de terceros
+    'django_select2',
 ]
 
 MIDDLEWARE = [

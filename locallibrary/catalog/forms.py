@@ -4,8 +4,10 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
+from django_select2 import forms as s2forms
 
 from catalog.models import BookInstance
+from . import models
 
 class RenewBookForm(forms.Form):
     renewal_date = forms.DateField(help_text="Introduce una fecha entre hoy y 4 semanas(default 3).")
@@ -56,3 +58,29 @@ class ContactForm(forms.Form):
     from_email.widget.attrs.update({'class': 'form-control'})
     subject.widget.attrs.update({'class': 'form-control'})
     message.widget.attrs.update({'class': 'form-control'})
+
+class AuthorWidget(s2forms.ModelSelect2MultipleWidget):
+    search_fields = [
+        'first_name__icontains',
+        'last_name__icontains',
+    ]
+
+class GenreWidget(s2forms.ModelSelect2MultipleWidget):
+    search_fields = [
+        'name__icontains',
+    ]
+
+class LanguageWidget(s2forms.ModelSelect2MultipleWidget):
+    search_fields = [
+        'name__icontains',
+    ]
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = models.Book
+        fields = '__all__'
+        widgets = {
+            'author': AuthorWidget,
+            'genre': GenreWidget,
+            'language': LanguageWidget
+        }
